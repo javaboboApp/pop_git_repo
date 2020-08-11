@@ -6,7 +6,7 @@ import androidx.room.Room
 object DatabaseFactory  {
 
     fun getDBInstance(context: Context) =
-        Room.databaseBuilder(context, AppDatabase::class.java, "Pop")
+        Room.databaseBuilder(context, AppDatabase::class.java, "gitRepo.db")
             .fallbackToDestructiveMigration()
             .build()
 

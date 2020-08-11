@@ -11,7 +11,7 @@ import com.example.poptestluis.R
 import com.example.poptestluis.models.GitRepository
 import kotlinx.android.synthetic.main.item_adapter_git_repos.view.*
 
-class RepoListAdapter : PagingDataAdapter<GitRepository, RepoListAdapter.RepoListViewHolder>(DiffUtilCallBack()) {
+class RepoListAdapter : PagingDataAdapter<GitRepository, RepoListAdapter.RepoListViewHolder>(UIMODEL_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_adapter_git_repos, parent, false)
@@ -36,16 +36,25 @@ class RepoListAdapter : PagingDataAdapter<GitRepository, RepoListAdapter.RepoLis
       }
     }
 
-    class DiffUtilCallBack : DiffUtil.ItemCallback<GitRepository>() {
-        override fun areItemsTheSame(oldItem: GitRepository, newItem: GitRepository): Boolean {
-            return oldItem.id == newItem.id
+
+
+
+    companion object {
+        private val UIMODEL_COMPARATOR = object : DiffUtil.ItemCallback<GitRepository>() {
+            override fun areItemsTheSame(oldItem: GitRepository, newItem: GitRepository): Boolean {
+                return oldItem.id == newItem.id
+                        && oldItem.description == newItem.description
+                        && oldItem.name == newItem.name
+                        && oldItem.full_name == newItem.full_name
+            }
+
+            override fun areContentsTheSame(oldItem: GitRepository, newItem: GitRepository): Boolean {
+                return oldItem == newItem
+
+            }
         }
-
-        override fun areContentsTheSame(oldItem: GitRepository, newItem: GitRepository): Boolean {
-            return oldItem == newItem
-
-        }
-
     }
-
 }
+
+
+

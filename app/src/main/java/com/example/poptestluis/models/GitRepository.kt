@@ -8,6 +8,7 @@ class GitRepository(
     val description: String
 ){
 
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -18,7 +19,6 @@ class GitRepository(
         if (name != other.name) return false
         if (full_name != other.full_name) return false
         if (description != other.description) return false
-
 
         return true
     }

@@ -20,6 +20,7 @@ val databaseModule = module {
 val networkModule = module {
     single { RetrofitInstance().retrofitGitRepo() }
 }
+
 val repositoriesModule = module {
     single<IGitRepoRepository> { GitRepoRepository(get(), get()) }
 }

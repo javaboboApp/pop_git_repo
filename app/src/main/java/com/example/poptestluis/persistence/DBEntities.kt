@@ -28,7 +28,7 @@ import androidx.room.*
  data class RemoteKeys(
     @PrimaryKey
     @ColumnInfo(name = "repoId")
-    var repoId: Long = 0,
+    var repoId: Long ,
     @ColumnInfo(name = "prevKey")
     var prevKey: Int?,
     @ColumnInfo(name = "nextKey")

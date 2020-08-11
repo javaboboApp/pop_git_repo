@@ -16,6 +16,7 @@ import java.io.InvalidObjectException
 import java.lang.Exception
 
 private const val TAG = "PageKeyedRemoteMediator"
+
 @OptIn(ExperimentalPagingApi::class)
 class PageKeyedRemoteMediator(
     private val db: AppDatabase,
@@ -35,32 +36,28 @@ class PageKeyedRemoteMediator(
             }
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
-                if (remoteKeys == null) {
-                    // The LoadType is PREPEND so some data was loaded before,
-                    // so we should have been able to get remote keys
-                    // If the remoteKeys are null, then we're an invalid state and we have a bug
-                    throw InvalidObjectException("Remote key and the prevKey should not be null")
-                }
-                // If the previous key is null, then we can't request more data
-                val prevKey = remoteKeys.prevKey
-                if (prevKey == null) {
-                    return MediatorResult.Success(endOfPaginationReached = true)
-                }
-                remoteKeys.prevKey
+                if (remoteKeys != null) {
+                    // If the previous key is null, then we can't request more data
+                    val prevKey = remoteKeys.prevKey
+                    if (prevKey == null) {
+                        return MediatorResult.Success(endOfPaginationReached = true)
+                    }
+                    remoteKeys.prevKey
+                } else
+                    GITHUB_STARTING_PAGE_INDEX
 
             }
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
-                if (remoteKeys?.nextKey == null) {
-                    throw InvalidObjectException("Remote key should not be null for $loadType")
-                }
-                remoteKeys.nextKey
+                if(remoteKeys != null)
+                   remoteKeys.nextKey
+                else GITHUB_STARTING_PAGE_INDEX
             }
         }!!
 
         try {
 
-            val apiResponse = gitRepoService.getRepository(userName, page)
+            val apiResponse = gitRepoService.getRepository(userName, page, state.config.pageSize)
 
             Log.i(TAG, "load: ${apiResponse.size}")
             val repos = apiResponse.asDatabaseModel()
@@ -74,7 +71,7 @@ class PageKeyedRemoteMediator(
                 val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = repos.map {
-                    RemoteKeys(repoId = it.id, prevKey = prevKey , nextKey = nextKey )
+                    RemoteKeys(repoId = it.id, prevKey = prevKey, nextKey = nextKey)
                 }
                 db.remoteKeysDao.insertAll(keys)
                 db.gitDao.insertRespositories(repos)
@@ -88,7 +85,7 @@ class PageKeyedRemoteMediator(
             Log.i(TAG, "load: ${exception.message}")
 
             return MediatorResult.Error(exception)
-        } catch (ex : Exception){
+        } catch (ex: Exception) {
             return MediatorResult.Error(Throwable("Unknown error"))
         }
 
