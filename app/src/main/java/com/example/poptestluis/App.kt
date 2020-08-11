@@ -1,15 +1,12 @@
 package com.example.poptestluis
 
 import android.app.Application
-import com.example.poptestluis.di.databaseModule
-import com.example.poptestluis.di.networkModule
-import com.example.poptestluis.di.repositoriesModule
-import com.example.poptestluis.di.viewModelModule
+import com.example.poptestluis.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class App : Application() {
-private val appComponent = mutableListOf(databaseModule, networkModule,repositoriesModule, viewModelModule)
+private val appComponent = mutableListOf(databaseModule, networkModule,repositoriesModule, viewModelModule, adapters)
 
     override fun onCreate() {
         super.onCreate()

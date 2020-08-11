@@ -1,9 +1,11 @@
 package com.example.poptestluis.ui.repos
 
 import android.content.Context
+import android.util.Log
 import androidx.fragment.app.Fragment
 import java.lang.ClassCastException
 
+private const val TAG = "BaseFragment"
 open class BaseFragment : Fragment() {
 
     var uiCommunicatorInterface: CommunicatorsInterface? = null
@@ -19,7 +21,8 @@ open class BaseFragment : Fragment() {
         try {
          uiCommunicatorInterface =   context as CommunicatorsInterface
         }catch (ex: ClassCastException){
-            throw ClassCastException("$context must implement ComnunicatorInterface")
+            Log.i(TAG, "$context must implement ComnunicatorInterface")
+
         }
     }
 }

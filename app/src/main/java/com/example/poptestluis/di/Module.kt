@@ -6,6 +6,7 @@ import com.example.poptestluis.network.RetrofitInstance
 import com.example.poptestluis.persistence.DatabaseFactory
 import com.example.poptestluis.repositories.GitRepoRepository
 import com.example.poptestluis.repositories.IGitRepoRepository
+import com.example.poptestluis.ui.repos.RepoListAdapter
 import com.example.poptestluis.ui.repos.ResposViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,5 +26,8 @@ val repositoriesModule = module {
 
 val viewModelModule = module {
     viewModel  { ResposViewModel(get()) }
+}
 
+val adapters = module{
+    single { RepoListAdapter() }
 }

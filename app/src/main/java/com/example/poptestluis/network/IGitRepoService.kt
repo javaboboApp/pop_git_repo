@@ -11,7 +11,7 @@ import retrofit2.http.*
 interface IGitRepoService {
 
     @GET(GET_REPOSITORIES_ENDPOINT)
-    suspend fun getPublicRepositoriesByUser(
+    suspend fun getRepository(
         @Path(PATH_USER_NAME) userName: String,
         @Query(PATH_PAGE) page: Int
     ) : List<GitRepositoryResponse>

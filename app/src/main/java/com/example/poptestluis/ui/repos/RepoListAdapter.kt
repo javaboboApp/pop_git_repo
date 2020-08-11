@@ -15,6 +15,8 @@ class RepoListAdapter : PagingDataAdapter<GitRepository, RepoListAdapter.RepoLis
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_adapter_git_repos, parent, false)
+
+
         return RepoListViewHolder(view)
     }
 

@@ -7,13 +7,13 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.poptestluis.mappers.asDatabaseModel
-import com.example.poptestluis.models.GitRepository
 import com.example.poptestluis.network.IGitRepoService
 import com.example.poptestluis.persistence.*
 import com.example.poptestluis.utils.GITHUB_STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException
 import java.io.InvalidObjectException
+import java.lang.Exception
 
 private const val TAG = "PageKeyedRemoteMediator"
 @OptIn(ExperimentalPagingApi::class)
@@ -35,21 +35,33 @@ class PageKeyedRemoteMediator(
             }
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
-                remoteKeys?.let{remoteKeys->
-                    remoteKeys.prevKey
-                } ?:  GITHUB_STARTING_PAGE_INDEX
-
+                if (remoteKeys == null) {
+                    // The LoadType is PREPEND so some data was loaded before,
+                    // so we should have been able to get remote keys
+                    // If the remoteKeys are null, then we're an invalid state and we have a bug
+                    throw InvalidObjectException("Remote key and the prevKey should not be null")
+                }
+                // If the previous key is null, then we can't request more data
+                val prevKey = remoteKeys.prevKey
+                if (prevKey == null) {
+                    return MediatorResult.Success(endOfPaginationReached = true)
+                }
+                remoteKeys.prevKey
 
             }
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
-
-                remoteKeys?.nextKey ?: GITHUB_STARTING_PAGE_INDEX
+                if (remoteKeys?.nextKey == null) {
+                    throw InvalidObjectException("Remote key should not be null for $loadType")
+                }
+                remoteKeys.nextKey
             }
-        }
+        }!!
 
         try {
-            val apiResponse = gitRepoService.getPublicRepositoriesByUser(userName, page)
+
+            val apiResponse = gitRepoService.getRepository(userName, page)
+
             Log.i(TAG, "load: ${apiResponse.size}")
             val repos = apiResponse.asDatabaseModel()
             val endOfPaginationReached = repos.isEmpty()
@@ -76,7 +88,10 @@ class PageKeyedRemoteMediator(
             Log.i(TAG, "load: ${exception.message}")
 
             return MediatorResult.Error(exception)
+        } catch (ex : Exception){
+            return MediatorResult.Error(Throwable("Unknown error"))
         }
+
     }
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, DBGitRepository>): RemoteKeys? {
@@ -92,7 +107,7 @@ class PageKeyedRemoteMediator(
     private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, DBGitRepository>): RemoteKeys? {
         // Get the first page that was retrieved, that contained items.
         // From that first page, get the first item
-        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.first()
+        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { repo ->
                 // Get the remote keys of the first items retrieved
                 db.remoteKeysDao.remoteKeysRepoId(repo.id)
