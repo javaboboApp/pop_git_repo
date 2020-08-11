@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/reposFragment"
-        android:name="com.example.poptestluis.ui.repos.ReposFragment"
+        android:name="com.example.poqtest.ui.repos.ReposFragment"
         android:label="fragment_repos"
         tools:layout="@layout/fragment_repos" />
 </navigation>
