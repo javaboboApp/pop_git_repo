@@ -8,6 +8,7 @@ import com.example.poqtest.network.IGitRepoService
 import com.example.poqtest.persistence.AppDatabase
 import com.example.poqtest.repositories.paging.PageKeyedRemoteMediator
 import com.example.poqtest.utils.NETWORK_PAGE_SIZE
+import com.example.poqtest.utils.OpenForTesting
 import kotlinx.coroutines.flow.Flow
 
 
@@ -16,7 +17,7 @@ private const val TAG = "GitRepoRepository"
 interface IGitRepoRepository {
     fun getPublicRepositoriesByUser(username: String): Flow<PagingData<GitRepository>>
 }
-
+@OpenForTesting
 class GitRepoRepository(
     private val gitRepoService: IGitRepoService,
     private val database: AppDatabase

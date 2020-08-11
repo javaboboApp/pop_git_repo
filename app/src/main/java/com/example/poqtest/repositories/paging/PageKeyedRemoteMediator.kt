@@ -10,12 +10,13 @@ import com.example.poqtest.mappers.asDatabaseModel
 import com.example.poqtest.network.IGitRepoService
 import com.example.poqtest.persistence.*
 import com.example.poqtest.utils.GITHUB_STARTING_PAGE_INDEX
+import com.example.poqtest.utils.OpenForTesting
 import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
 
 private const val TAG = "PageKeyedRemoteMediator"
-
+@OpenForTesting
 @OptIn(ExperimentalPagingApi::class)
 class PageKeyedRemoteMediator(
     private val db: AppDatabase,

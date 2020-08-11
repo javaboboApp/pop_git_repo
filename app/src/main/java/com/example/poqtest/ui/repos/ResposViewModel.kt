@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 private const val TAG = "ResposViewModel"
 
 @OpenForTesting
-class ResposViewModel(private val repo: IGitRepoRepository) : ViewModel() {
+open class ResposViewModel(private val repo: IGitRepoRepository) : ViewModel() {
 
     //get the repository given the userName
-    fun getRepos(userName: String): Flow<PagingData<GitRepository>> {
+   open fun getRepos(userName: String): Flow<PagingData<GitRepository>> {
         Log.i(TAG, "getRepos: ")
         return repo.getPublicRepositoriesByUser(userName)
 
