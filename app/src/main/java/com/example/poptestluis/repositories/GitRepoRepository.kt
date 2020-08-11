@@ -1,8 +1,8 @@
 package com.example.poptestluis.repositories
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import android.util.Log
+import androidx.paging.*
+import com.example.poptestluis.mappers.asDomain
 import com.example.poptestluis.models.GitRepository
 import com.example.poptestluis.network.IGitRepoService
 import com.example.poptestluis.persistence.AppDatabase
@@ -24,12 +24,15 @@ class GitRepoRepository(
 
 
     override fun getPublicRepositoriesByUser(userName: String) = Pager(
-        config = PagingConfig(NETWORK_PAGE_SIZE),
+        config = PagingConfig(NETWORK_PAGE_SIZE, enablePlaceholders = true),
         remoteMediator = PageKeyedRemoteMediator(database, gitRepoService, userName)
     ) {
-        database.gitDao.getPublicRepositoriesByUser(userName)
-    }.flow
+        Log.i(TAG, "getRepositories: ")
+       database.gitDao.getRepositories()
+    }.asDomain()
 
 
 }
+
+
 

@@ -1,18 +1,24 @@
 package com.example.poptestluis.ui.repos
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.example.poptestluis.R
 import kotlinx.android.synthetic.main.fragment_repos.*
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.time.LocalDate
+
+private const val TAG = "ReposFragment"
 
 @InternalCoroutinesApi
 class ReposFragment : BaseFragment() {
@@ -34,11 +40,28 @@ class ReposFragment : BaseFragment() {
         initAdapter()
         initRecyclerView()
         initGetRepos()
-
     }
 
     private fun initAdapter() {
-        repoListAdapter = RepoListAdapter(listOf())
+        repoListAdapter = RepoListAdapter()
+
+        repoListAdapter.addLoadStateListener { loadState ->
+            when (loadState.refresh) {
+                is LoadState.Loading -> {
+                    uiCommunicatorInterface?.showProgressBar()
+                }
+
+                is LoadState.Error -> {
+                    showErrorMsg()
+                    uiCommunicatorInterface?.hideProgressBar()
+                }
+
+                is LoadState.NotLoading -> {
+                    uiCommunicatorInterface?.hideProgressBar()
+
+                }
+            }
+        }
 
     }
 
@@ -51,14 +74,19 @@ class ReposFragment : BaseFragment() {
     private fun initGetRepos() {
 
         lifecycleScope.launch {
-            reposViewModel.getRepos("square").collectLatest{pagingGitRepository->
+
+            reposViewModel.getRepos("square").collectLatest { pagingGitRepository ->
+                Log.i(TAG, "initGetRepos: ")
                 repoListAdapter.submitData(pagingGitRepository)
+
             }
         }
 
 
+    }
 
-
+    private fun showErrorMsg() {
+        Toast.makeText(requireContext(), getString(R.string.error_msg), Toast.LENGTH_LONG).show()
     }
 
 

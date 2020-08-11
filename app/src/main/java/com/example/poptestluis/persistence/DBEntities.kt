@@ -4,49 +4,32 @@ import androidx.room.*
 
 @Entity(
     tableName = "repos"
+
 )
-class DBGitRepository {
+ data class DBGitRepository (
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: Long = 0
+    var id: Long = 0,
 
     @ColumnInfo(name = "full_name")
-    var full_name: String = ""
-
-
-    @ColumnInfo(name = "private_repo")
-    var private_repo: String = ""
+    var full_name: String = "",
 
     @ColumnInfo(name = "name")
-    var name: String = ""
+    var name: String = "",
 
     @ColumnInfo(name = "description")
     var description: String = ""
 
-
-    constructor() {
-        //do nothing
-    }
-
-    constructor(
-        id: Long,
-        full_name: String,
-        name: String,
-        description: String
-    ) {
-        this.id = id
-        this.full_name = full_name
-        this.name = name
-        this.description = description
-    }
-}
+)
 
 
 
 @Entity(tableName = "remote_keys")
-data class RemoteKeys(
+ data class RemoteKeys(
     @PrimaryKey
-    val repoId: Long,
-    val prevKey: Int?,
-    val nextKey: Int?
-)
+    @ColumnInfo(name = "repoId")
+    var repoId: Long = 0,
+    @ColumnInfo(name = "prevKey")
+    var prevKey: Int?,
+    @ColumnInfo(name = "nextKey")
+    var nextKey: Int? )

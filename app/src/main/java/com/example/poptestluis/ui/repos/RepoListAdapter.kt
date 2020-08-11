@@ -9,23 +9,29 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.poptestluis.R
 import com.example.poptestluis.models.GitRepository
+import kotlinx.android.synthetic.main.item_adapter_git_repos.view.*
 
-class RepoListAdapter(val list: List<GitRepository>) : PagingDataAdapter<GitRepository, RepoListAdapter.RepoListViewHolder>(DiffUtilCallBack()) {
+class RepoListAdapter : PagingDataAdapter<GitRepository, RepoListAdapter.RepoListViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_adapter_git_repos, parent, false)
         return RepoListViewHolder(view)
     }
 
-    override fun getItemCount(): Int = list.size
 
 
     override fun onBindViewHolder(holder: RepoListViewHolder, position: Int) {
-
+        getItem(position)?.let { gitRepository ->
+            holder.bind(gitRepository)
+        }
     }
 
     inner   class  RepoListViewHolder(val repo_view: View): RecyclerView.ViewHolder(repo_view){
+      fun bind(gitRepository: GitRepository) = with(itemView){
+          title.text = gitRepository.name
+          desc.text = gitRepository.description
 
+      }
     }
 
     class DiffUtilCallBack : DiffUtil.ItemCallback<GitRepository>() {

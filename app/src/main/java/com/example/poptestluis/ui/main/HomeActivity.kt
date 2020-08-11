@@ -12,8 +12,6 @@ class HomeActivity : AppCompatActivity(), BaseFragment.CommunicatorsInterface {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
-
     }
 
     override fun showProgressBar() {
