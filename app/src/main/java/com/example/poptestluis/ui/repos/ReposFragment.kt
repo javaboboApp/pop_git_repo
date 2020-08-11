@@ -5,14 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.poptestluis.R
+import kotlinx.android.synthetic.main.fragment_repos.*
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
+@InternalCoroutinesApi
 class ReposFragment : BaseFragment() {
 
-    val reposViewModel : ResposViewModel by viewModel()
-
+    val reposViewModel: ResposViewModel by viewModel()
+    lateinit var repoListAdapter: RepoListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +31,33 @@ class ReposFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        reposViewModel.getRepos("")
+        initAdapter()
+        initRecyclerView()
+        initGetRepos()
+
+    }
+
+    private fun initAdapter() {
+        repoListAdapter = RepoListAdapter(listOf())
+
+    }
+
+    private fun initRecyclerView() {
+        repos_list_recyclerview.apply {
+            adapter = repoListAdapter
+        }
+    }
+
+    private fun initGetRepos() {
+
+        lifecycleScope.launch {
+            reposViewModel.getRepos("square").collectLatest{pagingGitRepository->
+                repoListAdapter.submitData(pagingGitRepository)
+            }
+        }
+
+
+
 
     }
 

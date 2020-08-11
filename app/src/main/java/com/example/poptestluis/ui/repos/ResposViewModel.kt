@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.Flow
 class ResposViewModel(private val repo: IGitRepoRepository) : ViewModel() {
 
 
-    fun getRepos(userName: String): LiveData<PagingData<GitRepository>> {
+    fun getRepos(userName: String): Flow<PagingData<GitRepository>> {
 
-       return repo.getPublicRepositoriesByUser(userName).asLiveData()
+       return repo.getPublicRepositoriesByUser(userName)
 
     }
 

@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.poptestluis.R
 import com.example.poptestluis.models.GitRepository
 
-class RepoListAdapter(val list: List<GitRepository>) : PagedListAdapter<GitRepository, RepoListAdapter.RepoListViewHolder>(DiffUtilCallBack()) {
+class RepoListAdapter(val list: List<GitRepository>) : PagingDataAdapter<GitRepository, RepoListAdapter.RepoListViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_adapter_git_repos, parent, false)
