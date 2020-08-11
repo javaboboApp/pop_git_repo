@@ -76,13 +76,17 @@ class ReposFragmentTest : DatabaseTest(){
 
     @Test
     fun test_hideProgressBar_is_called_after_we_get_an_empty_list() = runBlocking {
+        //sumit the data in my mocked adapter
          repoListAdapter.submitData(PagingData.empty())
+        //hideProgressBar has been called??
         Mockito.verify(uiCommunicatorInterface).hideProgressBar()
     }
 
     @Test
     fun test_hideProgressBar_is_called_after_the_list_is_set() = runBlocking {
+        //sumitData in the adapter
         repoListAdapter.submitData(PagingData.from(TestUtil.TEST_LIST_GIT_REPO))
+        //hideProgressBar has been called??
         Mockito.verify(uiCommunicatorInterface).hideProgressBar()
     }
 
@@ -90,11 +94,13 @@ class ReposFragmentTest : DatabaseTest(){
 
     @Test
     fun testFragmentIsVisible() {
+        //fragment is visible
         onView(withId(R.id.fragment_repos)).check(matches(isDisplayed()))
     }
 
     @Test
     fun testRecyclerViewIsVisible() {
+        //recyvlerview is visible
         onView(withId(R.id.repos_list_recyclerview)).check(matches(isDisplayed()))
     }
 

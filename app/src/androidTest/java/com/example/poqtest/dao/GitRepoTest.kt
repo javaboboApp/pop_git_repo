@@ -12,6 +12,7 @@ class GitRepoTest : DatabaseTest() {
 
     @Test
     fun test_repos_are_inserted_not_error() = runBlocking{
+        //check that the object inserted is the same that we are retrieving...
         val repos = TestUtil.TEST_LIST_GIT_REPONSE__REPO.asDatabaseModel()
         gitDao.insertRespositories(repos)
 
@@ -28,6 +29,7 @@ class GitRepoTest : DatabaseTest() {
 
     @Test
     fun test_clear_is_working() = runBlocking {
+        //clear repo is working??
         val repos = TestUtil.TEST_LIST_GIT_REPONSE__REPO.asDatabaseModel()
         gitDao.insertRespositories(repos)
         gitDao.clearRepos()

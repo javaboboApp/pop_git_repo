@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.poqtest.R
 import com.example.poqtest.models.GitRepository
 import kotlinx.android.synthetic.main.item_adapter_git_repos.view.*
-
+//We are using paging so we need to extends of PagingDataAdapter
 class RepoListAdapter : PagingDataAdapter<GitRepository, RepoListAdapter.RepoListViewHolder>(UIMODEL_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoListViewHolder {
@@ -37,7 +37,7 @@ class RepoListAdapter : PagingDataAdapter<GitRepository, RepoListAdapter.RepoLis
 
 
 
-
+     //Using diff , we set the list in a background threat. faster and only we need to change the necesary...
     companion object {
         private val UIMODEL_COMPARATOR = object : DiffUtil.ItemCallback<GitRepository>() {
             override fun areItemsTheSame(oldItem: GitRepository, newItem: GitRepository): Boolean {

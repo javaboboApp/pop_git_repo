@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import java.lang.ClassCastException
 
 private const val TAG = "BaseFragment"
+//We use that baseFragment to reuse our code
 open class BaseFragment : Fragment() {
 
     var uiCommunicatorInterface: CommunicatorsInterface? = null

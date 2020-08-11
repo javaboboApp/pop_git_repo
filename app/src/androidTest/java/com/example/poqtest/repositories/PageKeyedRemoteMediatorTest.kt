@@ -3,7 +3,7 @@ package com.example.poqtest.repositories
 import androidx.paging.*
 import com.example.poqtest.network.IGitRepoService
 import com.example.poqtest.persistence.DBGitRepository
-import com.example.poqtest.ui.repos.paging.PageKeyedRemoteMediator
+import com.example.poqtest.repositories.paging.PageKeyedRemoteMediator
 import com.example.poqtest.utils.DatabaseTest
 import com.example.poqtest.utils.NETWORK_PAGE_SIZE
 import com.example.poqtest.utils.TestUtil
@@ -17,6 +17,9 @@ import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+
+//I believe that PageKeyedRemoteMediatorTest(belong to the repository package) is really impant so I decided to test it
+//The repository does not have many stuff to test...
 
 class PageKeyedRemoteMediatorTest : DatabaseTest() {
 

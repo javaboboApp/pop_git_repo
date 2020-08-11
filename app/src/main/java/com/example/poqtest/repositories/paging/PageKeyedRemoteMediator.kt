@@ -1,4 +1,4 @@
-package com.example.poqtest.ui.repos.paging
+package com.example.poqtest.repositories.paging
 
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi

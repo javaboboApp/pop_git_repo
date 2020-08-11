@@ -8,7 +8,7 @@ import org.junit.After
 import org.junit.Before
 import java.lang.Exception
 
-
+//util class to test the local database
 open class DatabaseTest {
     // system under test
     protected lateinit var db: AppDatabase

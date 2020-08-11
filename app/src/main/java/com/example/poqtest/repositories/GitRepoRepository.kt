@@ -6,7 +6,7 @@ import com.example.poqtest.mappers.asDomain
 import com.example.poqtest.models.GitRepository
 import com.example.poqtest.network.IGitRepoService
 import com.example.poqtest.persistence.AppDatabase
-import com.example.poqtest.ui.repos.paging.PageKeyedRemoteMediator
+import com.example.poqtest.repositories.paging.PageKeyedRemoteMediator
 import com.example.poqtest.utils.NETWORK_PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 
