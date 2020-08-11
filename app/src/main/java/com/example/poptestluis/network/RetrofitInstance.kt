@@ -12,7 +12,7 @@ class RetrofitInstance {
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    fun retrofitPupil(): IGitRepoService {
+    fun retrofitGitRepo(): IGitRepoService {
 
 
         return Retrofit.Builder()

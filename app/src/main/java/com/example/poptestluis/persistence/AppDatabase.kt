@@ -6,5 +6,6 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [DBGitRepository::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract val popDao: PopDao
+    abstract val gitDao: GitDao
+    abstract val remoteKeysDao : RemoteKeysDao
 }

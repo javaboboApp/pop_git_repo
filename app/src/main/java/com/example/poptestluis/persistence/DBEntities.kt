@@ -3,12 +3,7 @@ package com.example.poptestluis.persistence
 import androidx.room.*
 
 @Entity(
-    foreignKeys = [ForeignKey(
-        entity = DBUser::class,
-        parentColumns = arrayOf("username"),
-        childColumns = arrayOf("owner_name"),
-        onDelete = ForeignKey.CASCADE
-    )], indices = [Index(value = ["owner_name"])]
+    tableName = "repos"
 )
 class DBGitRepository {
     @PrimaryKey
@@ -18,17 +13,12 @@ class DBGitRepository {
     @ColumnInfo(name = "full_name")
     var full_name: String = ""
 
-    @ColumnInfo(name = "owner_name")
-    var owner_name: String = ""
 
     @ColumnInfo(name = "private_repo")
     var private_repo: String = ""
 
     @ColumnInfo(name = "name")
     var name: String = ""
-
-    @ColumnInfo(name = "date_modif")
-    var date_modif: Long? = 0
 
     @ColumnInfo(name = "description")
     var description: String = ""
@@ -41,26 +31,22 @@ class DBGitRepository {
     constructor(
         id: Long,
         full_name: String,
-        owner_name: String,
-        private: String,
         name: String,
-        description: String,
-        dateMof: Long?
+        description: String
     ) {
         this.id = id
         this.full_name = full_name
-        this.owner_name = owner_name
-        this.private_repo = private
         this.name = name
         this.description = description
-        date_modif = dateMof
     }
 }
 
-@Entity
-data class DBUser(
-    @PrimaryKey()
-    val username: String = "",
-    val avatar_url: String = "",
-    val token: String = ""
+
+
+@Entity(tableName = "remote_keys")
+data class RemoteKeys(
+    @PrimaryKey
+    val repoId: Long,
+    val prevKey: Int?,
+    val nextKey: Int?
 )

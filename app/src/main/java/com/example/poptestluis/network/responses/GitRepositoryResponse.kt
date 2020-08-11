@@ -12,7 +12,6 @@ data class GitRepositoryResponse (
     val name : String?,
     val full_name : String?,
     val private : Boolean?,
-    val owner : UserResponse?,
     val html_url : String?,
     val description : String?,
     val fork : Boolean?,
@@ -78,8 +77,7 @@ data class GitRepositoryResponse (
     val forks : Int?,
     val open_issues : Int?,
     val watchers : Int?,
-    val default_branch : String?,
-    val permissions : GitPermissionsResponse?
+    val default_branch : String?
 )
 
 
