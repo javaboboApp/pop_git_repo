@@ -51,7 +51,7 @@ class PageKeyedRemoteMediatorTest : DatabaseTest() {
             val response = TestUtil.TEST_LIST_GIT_REPONSE__REPO
 
             //Act
-            Mockito.`when`(iGitService.getRepository(anyString(), anyInt())).thenReturn(response)
+            Mockito.`when`(iGitService.getRepository(anyString(), anyInt(), anyInt())).thenReturn(response)
             //Verify
             val pag = PagingState<Int, DBGitRepository>(
                 pages = listOf(),
@@ -62,7 +62,7 @@ class PageKeyedRemoteMediatorTest : DatabaseTest() {
             val valueReturned: RemoteMediator.MediatorResult =
                 pageKeyedRemoteMediator.load(LoadType.REFRESH, pag)
 
-            Mockito.verify(iGitService).getRepository(anyString(), anyInt())
+            Mockito.verify(iGitService).getRepository(anyString(), anyInt(), anyInt())
 
             assertTrue(valueReturned is RemoteMediator.MediatorResult.Success)
 
@@ -77,7 +77,7 @@ class PageKeyedRemoteMediatorTest : DatabaseTest() {
                 val response = TestUtil.TEST_LIST_GIT_REPONSE__REPO
 
                 //Act
-                Mockito.`when`(iGitService.getRepository(anyString(), anyInt()))
+                Mockito.`when`(iGitService.getRepository(anyString(), anyInt(), anyInt()))
                     .thenReturn(null)
                 //Verify
                 val pag = PagingState<Int, DBGitRepository>(
@@ -89,7 +89,7 @@ class PageKeyedRemoteMediatorTest : DatabaseTest() {
                 val valueReturned: RemoteMediator.MediatorResult =
                     pageKeyedRemoteMediator.load(LoadType.REFRESH, pag)
 
-                Mockito.verify(iGitService).getRepository(anyString(), anyInt())
+                Mockito.verify(iGitService).getRepository(anyString(), anyInt(), anyInt())
 
                 assertTrue(valueReturned is RemoteMediator.MediatorResult.Error)
 

@@ -79,7 +79,7 @@ class ReposFragment : BaseFragment() {
 
     private fun initGetRepos() {
        //get the repositories of the for an user called square
-        lifecycleScope.launch {
+        CoroutineScope(IO).launch {
 
             reposViewModel.getRepos("square").collectLatest { pagingGitRepository ->
                 Log.i(TAG, "initGetRepos: ")
