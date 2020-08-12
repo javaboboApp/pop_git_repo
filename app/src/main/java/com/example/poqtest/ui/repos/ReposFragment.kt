@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.paging.LoadState
+import androidx.paging.map
 import com.example.poqtest.R
 import kotlinx.android.synthetic.main.fragment_repos.*
 import kotlinx.coroutines.CoroutineScope
@@ -77,8 +78,8 @@ class ReposFragment : BaseFragment() {
        //get the repositories of the for an user called square
         CoroutineScope(IO).launch {
 
-            reposViewModel.getRepos("square").collectLatest { pagingGitRepository ->
-                Log.i(TAG, "initGetRepos: ")
+            reposViewModel.getRepos("facebook").collectLatest { pagingGitRepository ->
+                Log.i(TAG, "initGetRepos:")
                 repoListAdapter.submitData(pagingGitRepository)
 
             }

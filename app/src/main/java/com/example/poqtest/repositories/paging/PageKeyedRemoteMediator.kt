@@ -59,7 +59,7 @@ class PageKeyedRemoteMediator(
 
             val apiResponse = gitRepoService.getRepository(userName, page, state.config.pageSize)
 
-            Log.i(TAG, "load: ${apiResponse.size}")
+            Log.i(TAG, "page: $page load: ${apiResponse.size}")
             val repos = apiResponse.asDatabaseModel()
             val endOfPaginationReached = repos.isEmpty()
             db.withTransaction {
