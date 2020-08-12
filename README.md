@@ -54,7 +54,7 @@ so the user would have the home(where the search option would be located),repo(p
 
 Would be interesting if we could see the commits as well like the image below (app created for me):
 
-(supergit.png)
+![alt text](https://github.com/javaboboApp/pop_git_repo/blob/master/supergit.png)
 
 
 
