@@ -80,7 +80,7 @@ class ReposFragment : BaseFragment() {
        //get the repositories of the for an user called square
         CoroutineScope(IO).launch {
 
-            reposViewModel.getRepos("facebook").collectLatest { pagingGitRepository ->
+            reposViewModel.getRepos("square").collectLatest { pagingGitRepository ->
                 Log.i(TAG, "initGetRepos:")
                 repoListAdapter.submitData(pagingGitRepository)
 
