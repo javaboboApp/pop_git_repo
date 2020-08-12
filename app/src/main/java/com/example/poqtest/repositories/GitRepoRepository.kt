@@ -17,6 +17,7 @@ private const val TAG = "GitRepoRepository"
 interface IGitRepoRepository {
     fun getPublicRepositoriesByUser(username: String): Flow<PagingData<GitRepository>>
 }
+//Git repository is in charge of get the list using Paging in this case , and the mediator that is the component in charge of insert in the local database....
 @OpenForTesting
 class GitRepoRepository(
     private val gitRepoService: IGitRepoService,
@@ -29,6 +30,7 @@ class GitRepoRepository(
         remoteMediator = PageKeyedRemoteMediator(database, gitRepoService, userName)
     ) {
         Log.i(TAG, "getRepositories: ")
+        //Idea of single of source of truth principle
        database.gitDao.getRepositories()
     }.asDomain()
 

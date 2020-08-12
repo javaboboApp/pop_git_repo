@@ -20,6 +20,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val TAG = "ReposFragment"
 
+//In thre reposFragment we are going to show the list of the repositories
+
 @InternalCoroutinesApi
 class ReposFragment : BaseFragment() {
 
@@ -89,6 +91,7 @@ class ReposFragment : BaseFragment() {
     }
 
     private fun showErrorMsg() {
+        //If there is an error (no internet connection included) the user is going to see an error.
         Toast.makeText(requireContext(), getString(R.string.error_msg), Toast.LENGTH_LONG).show()
     }
 
