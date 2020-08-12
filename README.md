@@ -27,7 +27,7 @@ Model: Is effectively the output from the domain layer
 View: The android activity and it's layout responsible for UI and user/system events
 ViewModel: A simple datastore that is observed by the view to populate it's UI ( survive to the configuration changes and help us to deal with the memory leaks)
 
-![alt text](https://koenig-media.raywenderlich.com/uploads/2018/04/MVVM_Diagram-650x266.png)
+![alt text](https://miro.medium.com/max/1400/1*yhe1VFEZBjZI2bKJlZZvjg.png)
 
 ## Paging library
 
