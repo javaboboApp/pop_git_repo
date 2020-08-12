@@ -52,9 +52,8 @@ NOTE: All the test has been implementated using androidInstrumentation test due 
 Would be intereting if the user can change the user's repository let say using an SearchView component, another improve would be have a bottomNavigation with multiple back stack
 so the user would have the home(where the search option would be located),repo(public and private repos),favourites(favourites repositories) option.
 
-Would be interesting if we could see the commits as well like the image below (app created for me):
+Would be interesting if we could see the commits as well.
 
-![alt text](https://github.com/javaboboApp/pop_git_repo/blob/master/supergit.png)
 
 
 
